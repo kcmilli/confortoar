@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conforto Ar Climatização</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --verde: #1D9E75;
+    --verde-escuro: #0F6E56;
+    --verde-claro: #E1F5EE;
+    --verde-medio: #9FE1CB;
+    --azul: #378ADD;
+    --azul-claro: #E6F1FB;
+    --cinza: #F7F8F6;
+    --texto: #1a2e26;
+    --texto-muted: #4a6358;
+    --branco: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--texto);
+    background: var(--branco);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(29,158,117,0.12);
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem; color: var(--verde-escuro);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--verde), var(--azul));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-icon svg { width: 20px; height: 20px; fill: white; }
+
+  nav ul {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  nav ul a {
+    text-decoration: none; color: var(--texto-muted);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--verde); }
+
+  .btn-nav {
+    background: var(--verde); color: white;
+    padding: 0.6rem 1.4rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: 0.875rem;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-nav:hover { background: var(--verde-escuro); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 5rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(29,158,117,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(55,138,221,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--verde-claro); color: var(--verde-escuro);
+    padding: 0.4rem 1rem; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(29,158,117,0.2);
+  }
+
+  .hero-badge span { width: 6px; height: 6px; background: var(--verde); border-radius: 50%; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    line-height: 1.1;
+    color: var(--texto);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em { color: var(--verde); font-style: italic; }
+
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.7;
+    color: var(--texto-muted); margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--verde); color: white;
+    padding: 0.9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(29,158,117,0.3);
+  }
+
+  .btn-primary:hover { background: var(--verde-escuro); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(29,158,117,0.4); }
+
+  .btn-secondary {
+    background: transparent; color: var(--verde-escuro);
+    padding: 0.9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--verde);
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-secondary:hover { background: var(--verde-claro); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem; border-top: 1px solid rgba(29,158,117,0.15);
+  }
+
+  .stat strong { display: block; font-size: 1.8rem; font-weight: 700; color: var(--verde); }
+  .stat span { font-size: 0.82rem; color: var(--texto-muted); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: floatIn 0.8s ease-out both;
+  }
+
+  @keyframes floatIn { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+
+  .hero-card-main {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(29,158,117,0.08);
+    width: 100%; max-width: 380px;
+    position: relative;
+  }
+
+  .ac-illustration {
+    width: 100%; height: 180px;
+    background: linear-gradient(135deg, var(--verde-claro), var(--azul-claro));
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+
+  .ac-unit {
+    width: 200px; height: 80px;
+    background: #eaf7f3;
+    border-radius: 12px;
+    border: 2px solid rgba(29,158,117,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(29,158,117,0.15);
+  }
+
+  .ac-unit::before {
+    content: '';
+    position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 6px;
+    background: rgba(29,158,117,0.2);
+    border-radius: 0 0 6px 6px;
+  }
+
+  .ac-vents {
+    display: flex; gap: 6px;
+  }
+
+  .vent { width: 3px; height: 30px; background: var(--verde); border-radius: 2px; opacity: 0.6; }
+  .vent:nth-child(2) { animation: ventMove 1.5s ease-in-out infinite 0.2s; }
+  .vent:nth-child(3) { animation: ventMove 1.5s ease-in-out infinite 0.4s; }
+  .vent:nth-child(4) { animation: ventMove 1.5s ease-in-out infinite 0.6s; }
+
+  @keyframes ventMove { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  .wind-line {
+    position: absolute;
+    height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--verde), transparent);
+    animation: windFlow 2s linear infinite;
+    opacity: 0.4;
+  }
+
+  .wind-line:nth-child(1) { width: 60px; top: 40%; left: -20px; animation-delay: 0s; }
+  .wind-line:nth-child(2) { width: 40px; top: 55%; left: -20px; animation-delay: 0.5s; }
+  .wind-line:nth-child(3) { width: 50px; top: 45%; left: -20px; animation-delay: 1s; }
+  .wind-line:nth-child(4) { width: 35px; bottom: 30%; right: -20px; transform: scaleX(-1); animation-delay: 0.7s; }
+
+  @keyframes windFlow { from{transform:translateX(-20px);opacity:0} 50%{opacity:0.5} to{transform:translateX(80px);opacity:0} }
+
+  .temp-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: white; border-radius: 12px; padding: 0.4rem 0.75rem;
+    font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .card-info { display: flex; justify-content: space-between; align-items: center; }
+  .card-info h3 { font-size: 1rem; font-weight: 600; }
+  .card-info p { font-size: 0.8rem; color: var(--texto-muted); margin-top: 2px; }
+
+  .card-rating {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 0.85rem; color: #f59e0b;
+  }
+
+  .floating-tag {
+    position: absolute;
+    background: white;
+    border-radius: 12px; padding: 0.5rem 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    font-size: 0.78rem; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    animation: floatBob 3s ease-in-out infinite;
+  }
+
+  .floating-tag.tag1 { top: -12px; left: -20px; color: var(--verde-escuro); border: 1px solid rgba(29,158,117,0.15); animation-delay: 0s; }
+  .floating-tag.tag2 { bottom: 30px; right: -25px; color: #185FA5; border: 1px solid rgba(55,138,221,0.15); animation-delay: 1s; }
+
+  @keyframes floatBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-green { background: var(--verde); }
+  .dot-blue { background: var(--azul); }
+
+  /* SEÇÕES */
+  section { padding: 6rem 5%; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--verde);
+    margin-bottom: 1rem;
+  }
+
+  .section-label::before {
+    content: ''; width: 24px; height: 2px;
+    background: var(--verde); border-radius: 2px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    line-height: 1.15; color: var(--texto);
+    margin-bottom: 1rem;
+  }
+
+  h2 em { color: var(--verde); font-style: italic; }
+
+  .section-desc {
+    font-size: 1rem; color: var(--texto-muted); line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* SERVIÇOS */
+  .servicos { background: var(--cinza); }
+
+  .servicos-header { text-align: center; margin-bottom: 4rem; }
+  .servicos-header .section-label { justify-content: center; }
+  .servicos-header .section-label::before { display: none; }
+  .servicos-header h2 { margin-bottom: 0.75rem; }
+  .servicos-header .section-desc { margin: 0 auto; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px; padding: 2rem;
+    border: 1px solid rgba(29,158,117,0.08);
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--verde), var(--azul));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(29,158,117,0.12); }
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-icon {
+    width: 52px; height: 52px;
+    background: var(--verde-claro);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-icon svg { width: 26px; height: 26px; stroke: var(--verde-escuro); fill: none; stroke-width: 1.8; }
+
+  .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.875rem; color: var(--texto-muted); line-height: 1.6; }
+
+  .card-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 1.25rem; font-size: 0.85rem;
+    font-weight: 600; color: var(--verde);
+    text-decoration: none; transition: gap 0.2s;
+  }
+
+  .card-link:hover { gap: 8px; }
+
+  /* POR QUÊ NÓS */
+  .porque { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+
+  .porque-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .porque-card {
+    background: var(--cinza); border-radius: 16px; padding: 1.5rem;
+    border: 1px solid rgba(29,158,117,0.08);
+  }
+
+  .porque-card:nth-child(2) { margin-top: 2rem; }
+  .porque-card:nth-child(4) { margin-top: -2rem; }
+
+  .porque-card strong {
+    display: block; font-size: 1.6rem;
+    font-family: 'DM Serif Display', serif; color: var(--verde);
+    margin-bottom: 0.25rem;
+  }
+
+  .porque-card span { font-size: 0.82rem; color: var(--texto-muted); }
+
+  .items-list { margin-top: 2rem; }
+
+  .item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(29,158,117,0.1);
+  }
+
+  .item:last-child { border-bottom: none; }
+
+  .item-check {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: var(--verde-claro); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  .item-check svg { width: 13px; height: 13px; stroke: var(--verde); stroke-width: 2.5; }
+
+  .item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .item p { font-size: 0.82rem; color: var(--texto-muted); line-height: 1.5; }
+
+  /* DEPOIMENTOS */
+  .depoimentos { background: var(--cinza); }
+
+  .dep-header { text-align: center; margin-bottom: 3.5rem; }
+  .dep-header .section-label { justify-content: center; }
+  .dep-header .section-label::before { display: none; }
+
+  .dep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+  .dep-card {
+    background: white; border-radius: 20px; padding: 1.75rem;
+    border: 1px solid rgba(29,158,117,0.08);
+  }
+
+  .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 1rem; }
+
+  .dep-text { font-size: 0.9rem; line-height: 1.7; color: var(--texto-muted); margin-bottom: 1.25rem; font-style: italic; }
+
+  .dep-author { display: flex; align-items: center; gap: 10px; }
+
+  .dep-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.8rem;
+    background: var(--verde-claro); color: var(--verde-escuro);
+  }
+
+  .dep-author strong { font-size: 0.875rem; display: block; }
+  .dep-author span { font-size: 0.78rem; color: var(--texto-muted); }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, var(--verde-escuro), #0d5c47);
+    color: white; text-align: center;
+    padding: 6rem 5%;
+    position: relative; overflow: hidden;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .cta .section-label { color: var(--verde-medio); justify-content: center; }
+  .cta .section-label::before { background: var(--verde-medio); }
+
+  .cta h2 { color: white; margin-bottom: 1rem; }
+  .cta p { color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-white {
+    background: white; color: var(--verde-escuro);
+    padding: 0.9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 700;
+    font-size: 0.95rem; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+  .btn-outline-white {
+    background: transparent; color: white;
+    padding: 0.9rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* FOOTER */
+  footer {
+    background: var(--texto); color: rgba(255,255,255,0.65);
+    padding: 3rem 5% 2rem;
+  }
+
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand .logo { color: white; margin-bottom: 0.75rem; }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.6; max-width: 280px; }
+
+  footer h4 { color: white; font-size: 0.9rem; margin-bottom: 1rem; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 0.5rem; }
+  footer ul a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  footer ul a:hover { color: var(--verde-medio); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem;
+  }
+
+  /* WHATSAPP */
+  .whatsapp-btn {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+    background: #25d366; color: white;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    transition: all 0.2s;
+    animation: wiggle 4s ease-in-out infinite 3s;
+  }
+
+  .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.6); }
+
+  @keyframes wiggle { 0%,100%{transform:rotate(0)} 85%{transform:rotate(0)} 88%{transform:rotate(-10deg)} 92%{transform:rotate(10deg)} 96%{transform:rotate(-5deg)} 98%{transform:rotate(5deg)} }
+
+  .whatsapp-btn svg { width: 28px; height: 28px; fill: white; }
+
+  /* ANIMAÇÕES DE ENTRADA */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-visual { display: none; }
+    .porque { grid-template-columns: 1fr; }
+    .porque-visual { order: -1; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h18M3 8c0-1.1.9-2 2-2h14a2 2 0 012 2M3 8v8a2 2 0 002 2h14a2 2 0 002-2V8M7 12h.01M12 12h.01"/><path d="M9 16v2M15 16v2" stroke-linecap="round"/></svg>
+    </div>
+    Conforto Ar
+  </a>
+  <ul>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#porque">Por que nós</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/5500000000000" class="btn-nav">Solicitar Orçamento</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span></span> Especialistas em climatização
+    </div>
+    <h1>O clima ideal<br>para cada <em>ambiente</em></h1>
+    <p class="hero-desc">Instalação, manutenção e limpeza de ar condicionado com qualidade profissional. Atendemos residências, empresas e indústrias em toda a região.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5500000000000" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.553 4.1 1.517 5.826L.057 23.82l6.18-1.435A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.86 0-3.608-.509-5.1-1.388l-.36-.21-3.735.866.897-3.64-.23-.37A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Solicitar Orçamento
+      </a>
+      <a href="#servicos" class="btn-secondary">
+        Ver serviços
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>+500</strong><span>Clientes atendidos</span></div>
+      <div class="stat"><strong>10+</strong><span>Anos de experiência</span></div>
+      <div class="stat"><strong>100%</strong><span>Garantia de serviço</span></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div style="position:relative; display:flex; justify-content:center;">
+      <div class="floating-tag tag1">
+        <div class="dot dot-green"></div>
+        Instalação concluída
+      </div>
+      <div class="hero-card-main">
+        <div class="ac-illustration">
+          <div class="wind-line"></div>
+          <div class="wind-line"></div>
+          <div class="wind-line"></div>
+          <div class="wind-line"></div>
+          <div class="ac-unit">
+            <div class="ac-vents">
+              <div class="vent"></div>
+              <div class="vent"></div>
+              <div class="vent"></div>
+              <div class="vent"></div>
+              <div class="vent"></div>
+            </div>
+          </div>
+          <div class="temp-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>
+            23°C
+          </div>
+        </div>
+        <div class="card-info">
+          <div>
+            <h3>Clima perfeito</h3>
+            <p>Instalação residencial</p>
+          </div>
+          <div class="card-rating">
+            ★★★★★ <span style="color:#888;font-size:0.78rem;margin-left:2px;">5.0</span>
+          </div>
+        </div>
+      </div>
+      <div class="floating-tag tag2">
+        <div class="dot dot-blue"></div>
+        Manutenção agendada
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-header">
+    <div class="section-label">Nossos serviços</div>
+    <h2>Tudo que seu <em>ar condicionado</em> precisa</h2>
+    <p class="section-desc">Do projeto à manutenção preventiva, oferecemos soluções completas de climatização para qualquer necessidade.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card fade-up">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      </div>
+      <h3>Instalação Residencial</h3>
+      <p>Instalação profissional de splits, multisplit e janela. Deixamos tudo funcionando com segurança e eficiência para o seu lar.</p>
+      <a href="https://wa.me/5500000000000" class="card-link">
+        Solicitar instalação
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v3M10 14h4"/></svg>
+      </div>
+      <h3>Instalação Comercial</h3>
+      <p>Projetos sob medida para escritórios, lojas, clínicas e indústrias. Climatização eficiente para grandes ambientes e alto desempenho.</p>
+      <a href="https://wa.me/5500000000000" class="card-link">
+        Falar com especialista
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Manutenção Preventiva</h3>
+      <p>Revisões periódicas para garantir o funcionamento perfeito, reduzir o consumo de energia e aumentar a vida útil do equipamento.</p>
+      <a href="https://wa.me/5500000000000" class="card-link">
+        Agendar manutenção
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M8.5 8.5s1.5 1 3.5 1 3.5-1 3.5-1"/><path d="M9 15c0 0 1 1.5 3 1.5s3-1.5 3-1.5"/></svg>
+      </div>
+      <h3>Limpeza e Higienização</h3>
+      <p>Limpeza completa dos filtros, serpentina e dreno. Ar mais saudável, sem fungos, bactérias ou ácaros circulando no seu ambiente.</p>
+      <a href="https://wa.me/5500000000000" class="card-link">
+        Agendar limpeza
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="card fade-up">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41"/></svg>
+      </div>
+      <h3>Diagnóstico e Reparo</h3>
+      <p>Identificamos e corrigimos falhas, vazamentos e problemas técnicos. Recarregamos gás e substituímos peças com garantia.</p>
+      <a href="https://wa.me/5500000000000" class="card-link">
+        Chamar técnico
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="card fade-up" style="background: linear-gradient(135deg, var(--verde-claro), #daf0fb); border-color: rgba(29,158,117,0.15);">
+      <div class="card-icon" style="background: white;">
+        <svg viewBox="0 0 24 24" stroke="var(--verde-escuro)"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <h3>Atendimento Urgente</h3>
+      <p>Precisa de atendimento rápido? Nossa equipe técnica está disponível para emergências. Fale agora pelo WhatsApp e agende o serviço.</p>
+      <a href="https://wa.me/5500000000000" class="card-link" style="color: var(--verde-escuro);">
+        Falar agora no WhatsApp
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÊ NÓS -->
+<section id="porque">
+  <div class="porque">
+    <div class="porque-visual">
+      <div class="porque-card fade-up">
+        <strong>+500</strong>
+        <span>Instalações realizadas</span>
+      </div>
+      <div class="porque-card fade-up">
+        <strong>10+</strong>
+        <span>Anos no mercado</span>
+      </div>
+      <div class="porque-card fade-up">
+        <strong>98%</strong>
+        <span>Clientes satisfeitos</span>
+      </div>
+      <div class="porque-card fade-up">
+        <strong>24h</strong>
+        <span>Suporte disponível</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Por que escolher a gente</div>
+      <h2>Qualidade e <em>confiança</em> em cada serviço</h2>
+      <p class="section-desc">Somos especialistas com mais de uma década de experiência no mercado, prontos para entregar o melhor em climatização.</p>
+
+      <div class="items-list">
+        <div class="item fade-up">
+          <div class="item-check">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Técnicos certificados</h4>
+            <p>Toda nossa equipe possui certificação e treinamento constante para trabalhar com as principais marcas do mercado.</p>
+          </div>
+        </div>
+        <div class="item fade-up">
+          <div class="item-check">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Garantia em todos os serviços</h4>
+            <p>Oferecemos garantia em mão de obra e nos insumos utilizados, garantindo sua tranquilidade após o serviço.</p>
+          </div>
+        </div>
+        <div class="item fade-up">
+          <div class="item-check">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Orçamento sem surpresas</h4>
+            <p>Transparência total no preço. Você sabe exatamente o que vai pagar antes de aprovar qualquer serviço.</p>
+          </div>
+        </div>
+        <div class="item fade-up">
+          <div class="item-check">
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Atendimento rápido e pontual</h4>
+            <p>Respeitamos seu tempo. Confirmamos o horário com antecedência e chegamos no prazo combinado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos" id="depoimentos">
+  <div class="dep-header">
+    <div class="section-label">Depoimentos</div>
+    <h2>O que nossos clientes <em>dizem</em></h2>
+  </div>
+
+  <div class="dep-grid">
+    <div class="dep-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="dep-text">"Serviço impecável! O técnico chegou no horário, foi muito profissional e o ar ficou gelando perfeitamente. Super indico!"</p>
+      <div class="dep-author">
+        <div class="dep-avatar">AM</div>
+        <div>
+          <strong>Ana Maria S.</strong>
+          <span>Instalação residencial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dep-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="dep-text">"Fizeram a manutenção de todos os aparelhos da nossa empresa em um único dia. Atendimento excelente e preço justo. Voltarei com certeza."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#E6F1FB;color:#185FA5;">RC</div>
+        <div>
+          <strong>Roberto C.</strong>
+          <span>Manutenção comercial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dep-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="dep-text">"Meu ar estava com problema há semanas. A Conforto Ar diagnosticou e resolveu tudo rapidinho. Muito eficientes e honestos no orçamento."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#FAEEDA;color:#633806;">FL</div>
+        <div>
+          <strong>Fernanda L.</strong>
+          <span>Reparo e recarga de gás</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contato">
+  <div class="section-label">Entre em contato</div>
+  <h2>Pronto para ter o <em style="color:#9FE1CB">clima perfeito</em>?</h2>
+  <p>Solicite um orçamento gratuito agora. Atendemos toda a região com rapidez e qualidade garantida.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5500000000000" class="btn-white">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--verde)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.118.553 4.1 1.517 5.826L.057 23.82l6.18-1.435A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.86 0-3.608-.509-5.1-1.388l-.36-.21-3.735.866.897-3.64-.23-.37A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Orçamento pelo WhatsApp
+    </a>
+    <a href="tel:+5500000000000" class="btn-outline-white">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Ligar agora
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h18M3 8c0-1.1.9-2 2-2h14a2 2 0 012 2M3 8v8a2 2 0 002 2h14a2 2 0 002-2V8M7 12h.01M12 12h.01"/><path d="M9 16v2M15 16v2" stroke-linecap="round"/></svg>
+        </div>
+        Conforto Ar
+      </a>
+      <p style="margin-top:0.75rem">Climatização profissional para sua casa, empresa ou indústria. Qualidade e conforto garantidos.</p>
+    </div>
+    <div>
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#servicos">Instalação Residencial</a></li>
+        <li><a href="#servicos">Instalação Comercial</a></li>
+        <li><a href="#servicos">Manutenção Preventiva</a></li>
+        <li><a href="#servicos">Limpeza e Higienização</a></li>
+        <li><a href="#servicos">Diagnóstico e Reparo</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/5500000000000">WhatsApp</a></li>
+        <li><a href="tel:+5500000000000">(00) 00000-0000</a></li>
+        <li><a href="mailto:contato@confortear.com.br">contato@confortear.com.br</a></li>
+        <li><a href="#porque">Sobre nós</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Conforto Ar Climatização. Todos os direitos reservados.</span>
+    <span>Feito com 💚 para o seu conforto</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/5500000000000" class="whatsapp-btn" title="Falar no WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.118.553 4.1 1.517 5.826L.057 23.82l6.18-1.435A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.86 0-3.608-.509-5.1-1.388l-.36-.21-3.735.866.897-3.64-.23-.37A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
